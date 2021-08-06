@@ -119,6 +119,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var label = [];
 var donnee = [];
 var color = [];
+var labb =[];
 window.chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
@@ -139,6 +140,7 @@ return "rgba(" + r + "," + g + "," + b + ","+e + ")";
 @foreach ($tab as $ta)
 label.push('{{$ta->nomc}}' + ' {{$ta->pourcentage}}'+ '%');
 donnee.push('{{$ta->pourcentage}}');
+labb.push('{{$ta->nomc}}');
 color.push(dynamicColors());
 @endforeach
 
@@ -164,25 +166,46 @@ datasets: [{
 });
 
 var myChart = new Chart(ctx1, {
-type: 'pie',
+type: 'bar',
 data: {
-labels: label,
+labels: labb,
 datasets: [{
     label: 'label',
     data: donnee,
-    backgroundColor: color,
-    borderColor: color,
+    backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgb(231, 233 ,237 , 0.2)',
+                'rgb(255, 205, 86, 0.2)',
+                'rgb(0, 255, 0, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgb(231, 233 ,237 , 1)',
+                'rgb(255, 205, 86, 1)',
+                'rgb(0, 255, 0, 1)'
+            ],
     borderWidth: 1
 }]
 },
-options: {
-scales: {
-    y: {
-        beginAtZero: true
+ options: {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
     }
-}
-}
+    }
 });
-var ctx = document.getElementById('myChart').getContext('2d');
 </script>
 @endsection
